@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="DELETE">
+        <applicability/>
+        <applicability_mode>query</applicability_mode>
+        <auto_resolution_enabled>false</auto_resolution_enabled>
+        <category>140e2eda0b203300a1b16c2367673af4</category>
+        <channels/>
+        <connect_queue/>
+        <description>Sample conversation flow to grant access to repositories</description>
+        <flexible_conversation_switching>false</flexible_conversation_switching>
+        <graph>{
+  "graph_api_version": "1.0.31",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "53ea0963bdd44eb7ab1bed34e9a803f0": {
+          "id": "53ea0963bdd44eb7ab1bed34e9a803f0",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "876d322b97b045a6b770ea20e9e1cb90": {
+          "id": "876d322b97b045a6b770ea20e9e1cb90",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "ba6d0c52960c4177b39aa68cd1bb834f": {
+          "stepType": "ChoicePrompt",
+          "name": "Choose repo",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "To which repository do you want to request access?"
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "74bf74f8950c438f9fc5c7f7fa8a44d6",
+          "id": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "88ef696193ed45e98e14696fb8045dc3": {
+          "id": "88ef696193ed45e98e14696fb8045dc3",
+          "stepType": "Decision",
+          "name": "Did user choose a repository?"
+        },
+        "62cd8c013f184acdb0ed5340c34470b1": {
+          "id": "62cd8c013f184acdb0ed5340c34470b1",
+          "name": "Grant access to repository (placeholder)",
+          "script": "(function execute() {\n    /* Example code to trigger an Action that invokes a REST/SOAP integration step\n       to grant current user the access to the requested repository.\n     */\n    /*\n    try {\n\n\t\tvar inputs = {};\n\t\tinputs['user_sys_id'] = vaInputs.user.getValue(); // String \n\t\tinputs['requested_repository'] = vaVars.selectedRepo;\n\n\t\t// Start Asynchronously: Uncomment to run in background. Code snippet will not have access to outputs.\n\t\t// sn_fd.FlowAPI.startAction('global.setup_repository_access', inputs);\n\t\t\t\t\n\t\t// Execute Synchronously: Run in foreground. Code snippet has access to outputs.\n\t\tvar outputs = sn_fd.FlowAPI.executeAction('global.setup_repository_access', inputs);\n\n\t\t// Get Outputs:\n\t\t// Note: outputs can only be retrieved when executing synchronously.\n\t\tvar output = outputs['output']; // String\n\t\tvar error_message = outputs['error_message']; // String\n\t\tvar windows_error_code = outputs['windows_error_code']; // String\n\n\t\tvaVars.status = output ? output.status : false;\n\t\t\n\t} catch (ex) {\n\t\tvar message = ex.getMessage();\n\t\tgs.error(message);\n\t}\n    */\n\n\t// Example for testing purposes\n    vaVars.status = (vaVars.selectedRepo !== 'box') &amp;&amp; (vaVars.selectedRepo !== 'ErrorRepo');\n})()\n",
+          "stepType": "ScriptAction",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "5125cb8d7db5429fbd6abd557931ee1c": {
+          "id": "5125cb8d7db5429fbd6abd557931ee1c",
+          "stepType": "Decision",
+          "name": "Access successful?"
+        },
+        "bc19d5546d894e1ebe704c2049bc279f": {
+          "id": "bc19d5546d894e1ebe704c2049bc279f",
+          "stepType": "TextOutput",
+          "name": "Granted access",
+          "value": {
+            "value": "(function execute() {\n    return gs.getMessage(\"I've granted you access to {0}\", vaVars.selectedRepoDisplay);\n})()\n",
+            "mode": "script"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "secure": false
+        },
+        "55c6ca1e490b47ca91cae81c8e15a601": {
+          "id": "55c6ca1e490b47ca91cae81c8e15a601",
+          "stepType": "Prompt",
+          "name": "Ask description",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Please enter the full repository name or filepath."
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "b98227e5bbf64e609d08adb5ca6120dd",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "inputType": {
+            "format": "Text",
+            "script": ""
+          }
+        },
+        "a498a521cb1e4f45a2fb90dabcc81b46": {
+          "id": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "stepType": "Prompt",
+          "name": "Open Ticket",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Would you like to open an IT ticket to get further help?"
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "aeb59a9f564b420c9f7993bc2f357370",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "a5c05bfa48b544869ce5455d14d636b4": {
+          "id": "a5c05bfa48b544869ce5455d14d636b4",
+          "stepType": "TextOutput",
+          "name": "Access not granted",
+          "value": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Sorry, you cannot access that repository."
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "secure": false
+        },
+        "7df163f0739f46d7aa7c79b39d8c4159": {
+          "id": "7df163f0739f46d7aa7c79b39d8c4159",
+          "stepType": "Decision",
+          "name": "Ticket needed?"
+        },
+        "645ac2cf4b8a476b86abaccf776c57d8": {
+          "id": "645ac2cf4b8a476b86abaccf776c57d8",
+          "name": "Set repository name",
+          "script": "(function execute() {\n    var selectedRepo = vaInputs.choose_repo.getValue();\n    if (selectedRepo !== 'enter_manually') {\n        vaVars.selectedRepo = selectedRepo;\n        vaVars.selectedRepoDisplay = vaInputs.choose_repo.getDisplayValue();        \n    } else {\n        vaVars.selectedRepo = vaInputs.ask_description.getValue();\n        vaVars.selectedRepoDisplay = vaVars.selectedRepo;\n    }\n})()\n",
+          "stepType": "ScriptAction",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "1904f18aaf5c4cefb787ae5cff1d72f6": {
+          "id": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "stepType": "ReusableTopic",
+          "name": "",
+          "fields": [],
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        }
+      },
+      "edges": [
+        {
+          "id": "c5266a23de054036af45ad7659fb4eec",
+          "edgeType": "Edge",
+          "source": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "da55fd51dc2447288c435068fbdb90d6",
+          "edgeType": "Edge",
+          "source": "bc19d5546d894e1ebe704c2049bc279f",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "fdc90824c7a94f76949b2ce5de48ceee",
+          "edgeType": "Edge",
+          "source": "55c6ca1e490b47ca91cae81c8e15a601",
+          "target": "645ac2cf4b8a476b86abaccf776c57d8",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "9da3229156a5464ca77edb9bd5b86457",
+          "edgeType": "Edge",
+          "source": "53ea0963bdd44eb7ab1bed34e9a803f0",
+          "target": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "4431b14e20654240aecafc06ecce5696",
+          "edgeType": "Edge",
+          "source": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "target": "88ef696193ed45e98e14696fb8045dc3",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "8686c8aaed31432c9c7e138eeb242377",
+          "edgeType": "Edge",
+          "source": "62cd8c013f184acdb0ed5340c34470b1",
+          "target": "5125cb8d7db5429fbd6abd557931ee1c",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "19fad3ec583346f18c2ec3b96b736979",
+          "edgeType": "Branch",
+          "source": "5125cb8d7db5429fbd6abd557931ee1c",
+          "target": "bc19d5546d894e1ebe704c2049bc279f",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "mode": "script",
+            "value": "(function execute() {\n    return vaVars.status;\n})()\n"
+          },
+          "label": "Yes"
+        },
+        {
+          "id": "50477b9763c1485c8e2deafc1b85b569",
+          "edgeType": "Branch",
+          "source": "88ef696193ed45e98e14696fb8045dc3",
+          "target": "55c6ca1e490b47ca91cae81c8e15a601",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "choose_repo=enter_manually",
+            "mode": "query"
+          },
+          "label": "Manual"
+        },
+        {
+          "id": "9c8b77fb26264fb3b5d93f907a4cffe2",
+          "edgeType": "Branch",
+          "source": "5125cb8d7db5429fbd6abd557931ee1c",
+          "target": "a5c05bfa48b544869ce5455d14d636b4",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "mode": "script",
+            "value": "(function execute() {\n    return !vaVars.status;\n})()\n"
+          },
+          "label": "No"
+        },
+        {
+          "id": "c76bbbe507ae4dc19c42073ad84c1fe6",
+          "edgeType": "Edge",
+          "source": "a5c05bfa48b544869ce5455d14d636b4",
+          "target": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "d35e9195f4b341cfb4bbbcc81b7a29d1",
+          "edgeType": "Edge",
+          "source": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "target": "7df163f0739f46d7aa7c79b39d8c4159",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "b1c1000bc7f94e4ba9c04e0a9c78a019",
+          "edgeType": "Branch",
+          "source": "7df163f0739f46d7aa7c79b39d8c4159",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "open_ticket!=true",
+            "mode": "query"
+          },
+          "label": "No"
+        },
+        {
+          "id": "115c96bd02cd4c48b2eaaa9e7ec9a37a",
+          "edgeType": "Branch",
+          "source": "88ef696193ed45e98e14696fb8045dc3",
+          "target": "645ac2cf4b8a476b86abaccf776c57d8",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "choose_repo!=enter_manually",
+            "mode": "query"
+          },
+          "label": "Yes"
+        },
+        {
+          "id": "82d9092d05e346b1b4917e2b0601c5d0",
+          "edgeType": "Edge",
+          "source": "645ac2cf4b8a476b86abaccf776c57d8",
+          "target": "62cd8c013f184acdb0ed5340c34470b1",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "f5a04958e54145ce98a1c6fa443294f6",
+          "edgeType": "Branch",
+          "source": "7df163f0739f46d7aa7c79b39d8c4159",
+          "target": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "open_ticket=true",
+            "mode": "query"
+          },
+          "label": "Yes"
+        }
+      ]
+    }
+  },
+  "variables": {
+    "74bf74f8950c438f9fc5c7f7fa8a44d6": {
+      "id": "74bf74f8950c438f9fc5c7f7fa8a44d6",
+      "name": "choose_repo",
+      "label": "Choose Repo",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Box",
+          "value": "box"
+        },
+        {
+          "label": "Dropbox",
+          "value": "dropbox"
+        },
+        {
+          "label": "OneDrive",
+          "value": "onedrive"
+        },
+        {
+          "label": "Sharepoint",
+          "value": "sharepoint"
+        },
+        {
+          "label": "Enter repository manually",
+          "value": "enter_manually"
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "b98227e5bbf64e609d08adb5ca6120dd": {
+      "id": "b98227e5bbf64e609d08adb5ca6120dd",
+      "name": "ask_description",
+      "label": "Ask Description",
+      "varType": "string",
+      "category": "vaInputs",
+      "secure": false,
+      "encryptionSalt": {
+        "value": "MTYzODc1OTE1NzY4OCBWQSBEZXNpZ25lciBpcyBhd2Vzb21l",
+        "mode": "simple"
+      },
+      "encryptionHashFunction": "SHA-256"
+    },
+    "aeb59a9f564b420c9f7993bc2f357370": {
+      "id": "aeb59a9f564b420c9f7993bc2f357370",
+      "name": "open_ticket",
+      "label": "Open Ticket",
+      "varType": "boolean",
+      "category": "vaInputs"
+    },
+    "8e19c08ba38e44bea9a1b0a284afd5ff": {
+      "id": "8e19c08ba38e44bea9a1b0a284afd5ff",
+      "value": {
+        "value": "",
+        "mode": "simple"
+      },
+      "name": "selectedRepoDisplay",
+      "label": "selectedRepoDisplay",
+      "varType": "script",
+      "category": "vaVars"
+    },
+    "63d92496c43d4ae88101ec51a393bf92": {
+      "category": "vaInputs",
+      "id": "63d92496c43d4ae88101ec51a393bf92",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "352f15db08af4281a08ae4dc5b103663": {
+      "id": "352f15db08af4281a08ae4dc5b103663",
+      "name": "created_incident_sys_id",
+      "label": "Created_incident_sys_id",
+      "defaultValue": "created_incident_sys_id",
+      "varType": "string",
+      "category": "vaInputs",
+      "metadata": {
+        "libraryMappingType": "output"
+      }
+    }
+  }
+}</graph>
+        <key_phrases>Report IT Issue,Repository Access,file,repo,repository,drive,access,directory,cloud,provider</key_phrases>
+        <library>false</library>
+        <live_agent>false</live_agent>
+        <name>Report IT Issue</name>
+        <nlu_intent/>
+        <nlu_intent_label/>
+        <nlu_model/>
+        <nlu_model_label/>
+        <nlu_provider/>
+        <roles/>
+        <source_topic_id>35958fe20be7230094396c2367673ae7</source_topic_id>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-12-06 02:53:48</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>3b62b6741b90011043a2c843604bcbe2</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Report IT Issue</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_cb_topic_3b62b6741b90011043a2c843604bcbe2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-12-06 02:55:48</sys_updated_on>
+        <triggerable_by_notification>false</triggerable_by_notification>
+        <type>STANDARD</type>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="DELETE" query="document_key=3b62b6741b90011043a2c843604bcbe2"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</application>
+        <file_path/>
+        <instance_id>d18fefc4db9b6c90ad8dd7c8f4961934</instance_id>
+        <instance_name>dev109160</instance_name>
+        <name>sys_cb_topic_3b62b6741b90011043a2c843604bcbe2</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic"><sys_cb_topic action="INSERT_OR_UPDATE"><applicability/><applicability_mode>query</applicability_mode><auto_resolution_enabled>false</auto_resolution_enabled><category>140e2eda0b203300a1b16c2367673af4</category><channels/><connect_queue/><description>Sample conversation flow to grant access to repositories</description><flexible_conversation_switching>false</flexible_conversation_switching><graph>{
+  "graph_api_version": "1.0.31",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "53ea0963bdd44eb7ab1bed34e9a803f0": {
+          "id": "53ea0963bdd44eb7ab1bed34e9a803f0",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "876d322b97b045a6b770ea20e9e1cb90": {
+          "id": "876d322b97b045a6b770ea20e9e1cb90",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "ba6d0c52960c4177b39aa68cd1bb834f": {
+          "stepType": "ChoicePrompt",
+          "name": "Choose repo",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "To which repository do you want to request access?"
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "74bf74f8950c438f9fc5c7f7fa8a44d6",
+          "id": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "88ef696193ed45e98e14696fb8045dc3": {
+          "id": "88ef696193ed45e98e14696fb8045dc3",
+          "stepType": "Decision",
+          "name": "Did user choose a repository?"
+        },
+        "62cd8c013f184acdb0ed5340c34470b1": {
+          "id": "62cd8c013f184acdb0ed5340c34470b1",
+          "name": "Grant access to repository (placeholder)",
+          "script": "(function execute() {\n    /* Example code to trigger an Action that invokes a REST/SOAP integration step\n       to grant current user the access to the requested repository.\n     */\n    /*\n    try {\n\n\t\tvar inputs = {};\n\t\tinputs['user_sys_id'] = vaInputs.user.getValue(); // String \n\t\tinputs['requested_repository'] = vaVars.selectedRepo;\n\n\t\t// Start Asynchronously: Uncomment to run in background. Code snippet will not have access to outputs.\n\t\t// sn_fd.FlowAPI.startAction('global.setup_repository_access', inputs);\n\t\t\t\t\n\t\t// Execute Synchronously: Run in foreground. Code snippet has access to outputs.\n\t\tvar outputs = sn_fd.FlowAPI.executeAction('global.setup_repository_access', inputs);\n\n\t\t// Get Outputs:\n\t\t// Note: outputs can only be retrieved when executing synchronously.\n\t\tvar output = outputs['output']; // String\n\t\tvar error_message = outputs['error_message']; // String\n\t\tvar windows_error_code = outputs['windows_error_code']; // String\n\n\t\tvaVars.status = output ? output.status : false;\n\t\t\n\t} catch (ex) {\n\t\tvar message = ex.getMessage();\n\t\tgs.error(message);\n\t}\n    */\n\n\t// Example for testing purposes\n    vaVars.status = (vaVars.selectedRepo !== 'box') &amp;&amp; (vaVars.selectedRepo !== 'ErrorRepo');\n})()\n",
+          "stepType": "ScriptAction",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "5125cb8d7db5429fbd6abd557931ee1c": {
+          "id": "5125cb8d7db5429fbd6abd557931ee1c",
+          "stepType": "Decision",
+          "name": "Access successful?"
+        },
+        "bc19d5546d894e1ebe704c2049bc279f": {
+          "id": "bc19d5546d894e1ebe704c2049bc279f",
+          "stepType": "TextOutput",
+          "name": "Granted access",
+          "value": {
+            "value": "(function execute() {\n    return gs.getMessage(\"I've granted you access to {0}\", vaVars.selectedRepoDisplay);\n})()\n",
+            "mode": "script"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "secure": false
+        },
+        "55c6ca1e490b47ca91cae81c8e15a601": {
+          "id": "55c6ca1e490b47ca91cae81c8e15a601",
+          "stepType": "Prompt",
+          "name": "Ask description",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Please enter the full repository name or filepath."
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "b98227e5bbf64e609d08adb5ca6120dd",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "inputType": {
+            "format": "Text",
+            "script": ""
+          }
+        },
+        "a498a521cb1e4f45a2fb90dabcc81b46": {
+          "id": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "stepType": "Prompt",
+          "name": "Open Ticket",
+          "prompt": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Would you like to open an IT ticket to get further help?"
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "optional": false,
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "aeb59a9f564b420c9f7993bc2f357370",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "entity": {
+            "id": ""
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "a5c05bfa48b544869ce5455d14d636b4": {
+          "id": "a5c05bfa48b544869ce5455d14d636b4",
+          "stepType": "TextOutput",
+          "name": "Access not granted",
+          "value": {
+            "value": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": ""
+                  },
+                  {
+                    "text": "Sorry, you cannot access that repository."
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "secure": false
+        },
+        "7df163f0739f46d7aa7c79b39d8c4159": {
+          "id": "7df163f0739f46d7aa7c79b39d8c4159",
+          "stepType": "Decision",
+          "name": "Ticket needed?"
+        },
+        "645ac2cf4b8a476b86abaccf776c57d8": {
+          "id": "645ac2cf4b8a476b86abaccf776c57d8",
+          "name": "Set repository name",
+          "script": "(function execute() {\n    var selectedRepo = vaInputs.choose_repo.getValue();\n    if (selectedRepo !== 'enter_manually') {\n        vaVars.selectedRepo = selectedRepo;\n        vaVars.selectedRepoDisplay = vaInputs.choose_repo.getDisplayValue();        \n    } else {\n        vaVars.selectedRepo = vaInputs.ask_description.getValue();\n        vaVars.selectedRepoDisplay = vaVars.selectedRepo;\n    }\n})()\n",
+          "stepType": "ScriptAction",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "1904f18aaf5c4cefb787ae5cff1d72f6": {
+          "id": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "stepType": "ReusableTopic",
+          "name": "",
+          "fields": [],
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        }
+      },
+      "edges": [
+        {
+          "id": "c5266a23de054036af45ad7659fb4eec",
+          "edgeType": "Edge",
+          "source": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "da55fd51dc2447288c435068fbdb90d6",
+          "edgeType": "Edge",
+          "source": "bc19d5546d894e1ebe704c2049bc279f",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "fdc90824c7a94f76949b2ce5de48ceee",
+          "edgeType": "Edge",
+          "source": "55c6ca1e490b47ca91cae81c8e15a601",
+          "target": "645ac2cf4b8a476b86abaccf776c57d8",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "9da3229156a5464ca77edb9bd5b86457",
+          "edgeType": "Edge",
+          "source": "53ea0963bdd44eb7ab1bed34e9a803f0",
+          "target": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "4431b14e20654240aecafc06ecce5696",
+          "edgeType": "Edge",
+          "source": "ba6d0c52960c4177b39aa68cd1bb834f",
+          "target": "88ef696193ed45e98e14696fb8045dc3",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "8686c8aaed31432c9c7e138eeb242377",
+          "edgeType": "Edge",
+          "source": "62cd8c013f184acdb0ed5340c34470b1",
+          "target": "5125cb8d7db5429fbd6abd557931ee1c",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "19fad3ec583346f18c2ec3b96b736979",
+          "edgeType": "Branch",
+          "source": "5125cb8d7db5429fbd6abd557931ee1c",
+          "target": "bc19d5546d894e1ebe704c2049bc279f",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "mode": "script",
+            "value": "(function execute() {\n    return vaVars.status;\n})()\n"
+          },
+          "label": "Yes"
+        },
+        {
+          "id": "50477b9763c1485c8e2deafc1b85b569",
+          "edgeType": "Branch",
+          "source": "88ef696193ed45e98e14696fb8045dc3",
+          "target": "55c6ca1e490b47ca91cae81c8e15a601",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "choose_repo=enter_manually",
+            "mode": "query"
+          },
+          "label": "Manual"
+        },
+        {
+          "id": "9c8b77fb26264fb3b5d93f907a4cffe2",
+          "edgeType": "Branch",
+          "source": "5125cb8d7db5429fbd6abd557931ee1c",
+          "target": "a5c05bfa48b544869ce5455d14d636b4",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "mode": "script",
+            "value": "(function execute() {\n    return !vaVars.status;\n})()\n"
+          },
+          "label": "No"
+        },
+        {
+          "id": "c76bbbe507ae4dc19c42073ad84c1fe6",
+          "edgeType": "Edge",
+          "source": "a5c05bfa48b544869ce5455d14d636b4",
+          "target": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "d35e9195f4b341cfb4bbbcc81b7a29d1",
+          "edgeType": "Edge",
+          "source": "a498a521cb1e4f45a2fb90dabcc81b46",
+          "target": "7df163f0739f46d7aa7c79b39d8c4159",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "b1c1000bc7f94e4ba9c04e0a9c78a019",
+          "edgeType": "Branch",
+          "source": "7df163f0739f46d7aa7c79b39d8c4159",
+          "target": "876d322b97b045a6b770ea20e9e1cb90",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "open_ticket!=true",
+            "mode": "query"
+          },
+          "label": "No"
+        },
+        {
+          "id": "115c96bd02cd4c48b2eaaa9e7ec9a37a",
+          "edgeType": "Branch",
+          "source": "88ef696193ed45e98e14696fb8045dc3",
+          "target": "645ac2cf4b8a476b86abaccf776c57d8",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "choose_repo!=enter_manually",
+            "mode": "query"
+          },
+          "label": "Yes"
+        },
+        {
+          "id": "82d9092d05e346b1b4917e2b0601c5d0",
+          "edgeType": "Edge",
+          "source": "645ac2cf4b8a476b86abaccf776c57d8",
+          "target": "62cd8c013f184acdb0ed5340c34470b1",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "f5a04958e54145ce98a1c6fa443294f6",
+          "edgeType": "Branch",
+          "source": "7df163f0739f46d7aa7c79b39d8c4159",
+          "target": "1904f18aaf5c4cefb787ae5cff1d72f6",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "open_ticket=true",
+            "mode": "query"
+          },
+          "label": "Yes"
+        }
+      ]
+    }
+  },
+  "variables": {
+    "74bf74f8950c438f9fc5c7f7fa8a44d6": {
+      "id": "74bf74f8950c438f9fc5c7f7fa8a44d6",
+      "name": "choose_repo",
+      "label": "Choose Repo",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Box",
+          "value": "box"
+        },
+        {
+          "label": "Dropbox",
+          "value": "dropbox"
+        },
+        {
+          "label": "OneDrive",
+          "value": "onedrive"
+        },
+        {
+          "label": "Sharepoint",
+          "value": "sharepoint"
+        },
+        {
+          "label": "Enter repository manually",
+          "value": "enter_manually"
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "b98227e5bbf64e609d08adb5ca6120dd": {
+      "id": "b98227e5bbf64e609d08adb5ca6120dd",
+      "name": "ask_description",
+      "label": "Ask Description",
+      "varType": "string",
+      "category": "vaInputs",
+      "secure": false,
+      "encryptionSalt": {
+        "value": "MTYzODc1OTE1NzY4OCBWQSBEZXNpZ25lciBpcyBhd2Vzb21l",
+        "mode": "simple"
+      },
+      "encryptionHashFunction": "SHA-256"
+    },
+    "aeb59a9f564b420c9f7993bc2f357370": {
+      "id": "aeb59a9f564b420c9f7993bc2f357370",
+      "name": "open_ticket",
+      "label": "Open Ticket",
+      "varType": "boolean",
+      "category": "vaInputs"
+    },
+    "8e19c08ba38e44bea9a1b0a284afd5ff": {
+      "id": "8e19c08ba38e44bea9a1b0a284afd5ff",
+      "value": {
+        "value": "",
+        "mode": "simple"
+      },
+      "name": "selectedRepoDisplay",
+      "label": "selectedRepoDisplay",
+      "varType": "script",
+      "category": "vaVars"
+    },
+    "63d92496c43d4ae88101ec51a393bf92": {
+      "category": "vaInputs",
+      "id": "63d92496c43d4ae88101ec51a393bf92",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "352f15db08af4281a08ae4dc5b103663": {
+      "id": "352f15db08af4281a08ae4dc5b103663",
+      "name": "created_incident_sys_id",
+      "label": "Created_incident_sys_id",
+      "defaultValue": "created_incident_sys_id",
+      "varType": "string",
+      "category": "vaInputs",
+      "metadata": {
+        "libraryMappingType": "output"
+      }
+    }
+  }
+}</graph><key_phrases>Report IT Issue,Repository Access,file,repo,repository,drive,access,directory,cloud,provider</key_phrases><library>false</library><live_agent>false</live_agent><name>Report IT Issue</name><nlu_intent/><nlu_intent_label/><nlu_model/><nlu_model_label/><nlu_provider/><roles/><source_topic_id>35958fe20be7230094396c2367673ae7</source_topic_id><sys_class_name>sys_cb_topic</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2021-12-06 02:53:48</sys_created_on><sys_domain>global</sys_domain><sys_id>3b62b6741b90011043a2c843604bcbe2</sys_id><sys_mod_count>1</sys_mod_count><sys_name>Report IT Issue</sys_name><sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package><sys_policy/><sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope><sys_update_name>sys_cb_topic_3b62b6741b90011043a2c843604bcbe2</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2021-12-06 02:55:48</sys_updated_on><triggerable_by_notification>false</triggerable_by_notification><type>STANDARD</type><variables/></sys_cb_topic><sys_variable_value action="delete_multiple" query="document_key=3b62b6741b90011043a2c843604bcbe2"/></record_update>]]></payload>
+        <payload_hash>1094211966</payload_hash>
+        <record_name>Report IT Issue</record_name>
+        <reverted_from/>
+        <source>59432ef01b10011043a2c843604bcbc0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-12-06 02:55:48</sys_created_on>
+        <sys_id>51e2b2b01b90011043a2c843604bcb82</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17d8dab3a540000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-12-06 02:55:48</sys_updated_on>
+        <type>Topic</type>
+        <update_guid>99e2b2b0ec900110e4338d3689843481</update_guid>
+        <update_guid_history>99e2b2b0ec900110e4338d3689843481:1094211966,776232f4ce9001104d3e38b03549a1eb:-1942412259</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-12-06 02:58:40</sys_created_on>
+        <sys_db_object display_value="" name="sys_cb_topic">sys_cb_topic</sys_db_object>
+        <sys_id>2f1c54e804c045c99b3099153e5c6b31</sys_id>
+        <sys_metadata>3b62b6741b90011043a2c843604bcbe2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Report IT Issue</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_scope_delete display_value="">94872a8897db403e8ee69a431de2fca4</sys_scope_delete>
+        <sys_update_name>sys_cb_topic_3b62b6741b90011043a2c843604bcbe2</sys_update_name>
+        <sys_update_version display_value="sys_cb_topic_3b62b6741b90011043a2c843604bcbe2">51e2b2b01b90011043a2c843604bcb82</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-12-06 02:58:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
